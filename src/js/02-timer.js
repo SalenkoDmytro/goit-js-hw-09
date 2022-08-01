@@ -67,8 +67,6 @@ const refs = {
   second: document.querySelector('[data-seconds]'),
 };
 
-const timer = new Timer();
-
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -79,10 +77,20 @@ const options = {
       return Notiflix.Notify.failure('Please choose a date in the future');
     }
     refs.btn.disabled = false;
-    refs.btn.addEventListener('click', timer.start(selectedDates[0]));
   },
 };
 
+const timer = new Timer();
+const fp = flatpickr('#datetime-picker', options);
+
 refs.btn.disabled = true;
 
-flatpickr('#datetime-picker', options);
+refs.btn.addEventListener('click', onBtnClick);
+
+function onBtnClick() {
+  if (fp.selectedDates[0] <= new Date()) {
+    return Notiflix.Notify.failure('Please choose a date in the future');
+  }
+  timer.start(fp.selectedDates[0]);
+  Notiflix.Notify.success('Run, Forest, RUN!!!');
+}
