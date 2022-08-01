@@ -3,7 +3,7 @@ const stopBtn = document.querySelector('[data-stop]');
 const bodyRef = document.querySelector('body');
 let timeId = null;
 
-disableBtn();
+toggleBtn();
 
 startBtn.addEventListener('click', onStartBtnClick);
 stopBtn.addEventListener('click', onStopBtnClick);
@@ -13,13 +13,11 @@ function onStartBtnClick() {
     () => (bodyRef.style.backgroundColor = getRandomHexColor()),
     1000
   );
-
-  toggleBtn();
+  toggleBtn(stopBtn, startBtn);
 }
 
 function onStopBtnClick() {
   clearInterval(timeId);
-
   toggleBtn();
 }
 
@@ -27,11 +25,7 @@ function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
 
-function toggleBtn() {
-  disableBtn();
-  stopBtn.disabled = false;
-}
-
-function disableBtn() {
-  stopBtn.disabled = true;
+function toggleBtn(enableBtn = startBtn, disableBtn = stopBtn) {
+  disableBtn.disabled = true;
+  enableBtn.disabled = false;
 }
