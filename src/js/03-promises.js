@@ -15,13 +15,19 @@ function onFormSubmit(event) {
   amountOfCreatingPromises(inputsData);
 }
 
-function amountOfCreatingPromises({ amount, step }) {
-  let totalDelay = inputsData.delay;
+function amountOfCreatingPromises({ amount, step, delay }) {
+  let totalDelay = delay;
 
   for (let i = 1; i <= amount; i += 1) {
     createPromise(i, totalDelay)
-      .then(success => Notiflix.Notify.success(success))
-      .catch(error => Notiflix.Notify.failure(error));
+      .then(({ position, delay }) =>
+        Notiflix.Notify.success(
+          `✅ Fulfilled promise ${position} in ${delay}ms`
+        )
+      )
+      .catch(({ position, delay }) =>
+        Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`)
+      );
 
     totalDelay += step;
   }
@@ -33,9 +39,9 @@ function createPromise(position, delay) {
 
     setTimeout(() => {
       if (shouldResolve) {
-        resolve(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        resolve({ position, delay });
       } else {
-        reject(`❌ Rejected promise ${position} in ${delay}ms`);
+        reject({ position, delay });
       }
     }, delay);
   });
