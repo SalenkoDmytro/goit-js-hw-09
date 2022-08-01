@@ -76,14 +76,15 @@ const options = {
     if (selectedDates[0] <= new Date()) {
       return Notiflix.Notify.failure('Please choose a date in the future');
     }
-    refs.btn.disabled = false;
+
+    disableBtn();
   },
 };
 
 const timer = new Timer();
 const fp = flatpickr('#datetime-picker', options);
 
-refs.btn.disabled = true;
+enableBtn();
 
 refs.btn.addEventListener('click', onBtnClick);
 
@@ -93,4 +94,11 @@ function onBtnClick() {
   }
   timer.start(fp.selectedDates[0]);
   Notiflix.Notify.success('Run, Forest, RUN!!!');
+}
+
+function disableBtn() {
+  refs.btn.disabled = false;
+}
+function enableBtn() {
+  refs.btn.disabled = true;
 }
