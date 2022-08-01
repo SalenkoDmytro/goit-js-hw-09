@@ -1,6 +1,6 @@
-import flatpickr from 'flatpickr';
-import 'flatpickr/dist/flatpickr.min.css';
-import Notiflix from 'notiflix';
+import flatpickr from '/node_modules/flatpickr';
+import '/node_modules/flatpickr/dist/flatpickr.min.css';
+import Notiflix from '/node_modules/notiflix';
 
 class Timer {
   constructor() {
