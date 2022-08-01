@@ -1,4 +1,4 @@
-import Notiflix from '/node_modules/notiflix';
+import Notiflix from 'notiflix';
 
 const form = document.querySelector('.form');
 const inputsData = {};
